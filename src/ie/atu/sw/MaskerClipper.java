@@ -1,6 +1,6 @@
 package ie.atu.sw;
 
-public class MaskerClipper {
+public class MaskerClipper implements Numerable{
 	
 	//Clips a string past a given length
 	public String clip(Object obj, int max) {
@@ -22,4 +22,11 @@ public class MaskerClipper {
 	int multiplyByTwo(int number) {
 		return number << 1;
 	}
+
+	@Override
+	public int returnInt(int i) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

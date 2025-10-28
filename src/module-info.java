@@ -4,5 +4,5 @@
 /**
  * 
  */
-module JavaAbsRefrac {
+module atu.software {
 }
