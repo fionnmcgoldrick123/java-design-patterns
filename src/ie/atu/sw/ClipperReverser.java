@@ -4,7 +4,7 @@ package ie.atu.sw;
  * Clips a string and reverses the bits of an integer 
  * above a threshold
  */
-public class ClipperReverser {
+public class ClipperReverser implements Stringable{
 	char remove = 'a';
 	int THRESHOLD = 42; 
 	
@@ -18,5 +18,11 @@ public class ClipperReverser {
 	
 	public int reverseIf(int num) {
 		return num > THRESHOLD ? Integer.reverse(num) : num;
+	}
+
+	@Override
+	public String returnString(String s) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

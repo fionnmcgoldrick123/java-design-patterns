@@ -5,9 +5,13 @@ import java.time.DayOfWeek;
 public class Retainer { // Ideally should only be one Retainer in the system
 	
 	Stringifier strg = new Stringifier();
-	MaskerClipper mskc = new MaskerClipper();
+	MaskerClipper mskc = new MaskerClipper(); 
 	ClipperReverser crev = new ClipperReverser();
 	Constrainer cnstr = new Constrainer();
+	
+	
+	private Stringable s; 
+	private Numerable n; 
 
 	// Singleton Pattern
 	private static Retainer instance;
@@ -23,33 +27,14 @@ public class Retainer { // Ideally should only be one Retainer in the system
 		return instance;
 	}
 
-
-
-	// This method is too long and doing way too much...
 	public Object retain(Info info, String val) {
 		switch (info) {
 		case READY, ON_HOLD -> {
-			if (strg != null) {
-				return strg.doXOR(new StringBuffer(val));
-			} else if (crev != null) {
-				return crev.clip(val);
-			} else if (cnstr != null) {
-				return cnstr.constrain(val);
-			}
+			readyHold(val);
 		}
 
 		case REMOVED, SUSPENDED -> {
-			// Ideally only should execute one of these that is not null
-			if (strg != null) {
-				strg.day = DayOfWeek.MONDAY;
-				return strg.process(val);
-			} else if (crev != null) {
-				crev.remove = 'b';
-				return crev.clip(val);
-			} else if (cnstr != null) {
-				cnstr.constrain = "[a-zA-Z]";
-				return cnstr.constrain(val);
-			}
+			removeSuspended(val);
 		}
 		case DEPRECATED -> {
 			crev.clip(val);
@@ -58,5 +43,32 @@ public class Retainer { // Ideally should only be one Retainer in the system
 		}
 
 		return null;
+	}
+	
+	public Object readyHold(String val) {
+		if (strg != null) {
+			return strg.doXOR(new StringBuffer(val));
+		} else if (crev != null) {
+			return crev.clip(val);
+		} else if (cnstr != null) {
+			return cnstr.constrain(val);
+		}
+		
+		return null;
+	}
+	
+	public Object removeSuspended(String val) {
+		if (strg != null) {
+			strg.day = DayOfWeek.MONDAY;
+			return strg.process(val);
+		} else if (crev != null) {
+			crev.remove = 'b';
+			return crev.clip(val);
+		} else if (cnstr != null) {
+			cnstr.constrain = "[a-zA-Z]";
+			return cnstr.constrain(val);
+		}
+	
+	return null;
 	}
 }
