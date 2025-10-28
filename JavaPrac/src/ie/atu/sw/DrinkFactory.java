@@ -8,7 +8,6 @@ public class DrinkFactory {
 		case COFFEE: 
 			return new Coffee();
 		}
-		
 		return null;
 		
 	}
